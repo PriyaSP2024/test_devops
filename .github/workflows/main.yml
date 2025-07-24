@@ -54,7 +54,7 @@ jobs:
 
       with:
 
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.SERVER_IP }}
 
         username: ubuntu
 
