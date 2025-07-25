@@ -1,5 +1,5 @@
 name: CI/CD Pipeline
- 
+
 on:
 
   push:
@@ -7,19 +7,19 @@ on:
     branches:
 
       - main  # Trigger only on push to main branch
- 
+
 jobs:
 
   build-and-deploy:
 
     runs-on: ubuntu-latest
- 
+
     steps:
 
       - name: ✅ Checkout code
 
         uses: actions/checkout@v3
- 
+
       - name: 🐍 Set up Python
 
         uses: actions/setup-python@v4
@@ -27,7 +27,7 @@ jobs:
         with:
 
           python-version: '3.11'
- 
+
       - name: 📦 Install dependencies
 
         run: |
@@ -35,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip
 
           pip install -r requirements.txt
- 
+
       - name: 🔍 SonarQube Scan
 
         uses: sonarsource/sonarqube-scan-action@v2
@@ -48,8 +48,8 @@ jobs:
 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-          SONAR_HOST_URL: http://3.145.61.65:9000
- 
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # Use secret if possible
+
       - name: 📤 Copy files to EC2 via SCP
 
         uses: appleboy/scp-action@master
@@ -67,7 +67,7 @@ jobs:
           target: "/home/${{ secrets.SERVER_USER }}/horilla"
 
           strip_components: 1
- 
+
       - name: 🚀 SSH into EC2 and deploy
 
         uses: appleboy/ssh-action@master
@@ -89,17 +89,17 @@ jobs:
             unset DOCKER_HOST
 
             unset DOCKER_CERT_PATH
- 
+
             echo "📁 Entering project directory"
 
             cd horilla
- 
+
             echo "🧹 Stopping old containers (if any)..."
 
             docker-compose down || true
- 
+
             echo "🚀 Starting containers..."
 
             docker-compose up -d --build
-
+ 
  
