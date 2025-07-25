@@ -48,7 +48,7 @@ jobs:
 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # Use secret if possib
+          SONAR_HOST_URL: http://3.145.61.65:9000
  
       - name: 📤 Copy files to EC2 via SCP
 
