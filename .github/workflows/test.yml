@@ -40,13 +40,17 @@ jobs:
           source: "."
           target: "/home/${{ secrets.SERVER_USER }}/horilla"
           strip_components: 1
- 
-      - name: 🚀 SSH into EC2 and deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+              
+      -  - name: Copy files to remote server
+           uses: appleboy/scp-action@master
+           with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: 22
+            source: "."
+            target: "/home/ubuntu/horilla"
+
           script: |
             echo "🔓 Unsetting Docker TLS variables if any..."
             unset DOCKER_TLS_VERIFY
