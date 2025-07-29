@@ -30,7 +30,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # Use secret if possible
- 
+
       - name: 📤 Copy files to EC2 via SCP
         uses: appleboy/scp-action@master
         with:
