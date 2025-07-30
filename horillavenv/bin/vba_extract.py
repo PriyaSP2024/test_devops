@@ -1,4 +1,4 @@
-#!/home/ubuntu/test_devops/horillavenv/bin/python3
+#!/home/ubuntu/test_devops/horillavenv/bin/python3.12
 
 ##############################################################################
 #
