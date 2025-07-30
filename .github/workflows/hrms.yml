@@ -1,0 +1,41 @@
+name:CICD pipeline-Horilla Demo
+
+ on:
+  push:
+    branches:
+     -main
+
+jobs:
+  build-and-analyze
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Checkout Repository
+         uses: actions/checkout@v4
+       - name: Setup Python
+         uses: actions/setup-python@v5
+         with:
+            python-version '3.11'
+       - name: Install Dependencies
+         run: 1
+          python-m pip install--upgrade pip
+          pip install -r requirements.txt
+
+       - name: Run Diango Tests
+         run: 1
+           python manage.py makemigrations
+           python manage.py migrate
+           python manage.py test
+           
+       - name: Sonarqube Analysis
+          uses: sonarqube/sonarqube-scan-action@v2
+          with:
+            project BaseDir: .
+            args: >
+               -Dsonar.ProjectKey=Horilla-Demo
+               -Dsonar-python.version=3.11
+
+       env:
+        SONAR_TOKEN:${{secreats.SONAR_TOKEN}}
+        SONAR_HOST_URL:{{secreats.SONAR_HOST_URL}}
+            
