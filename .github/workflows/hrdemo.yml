@@ -5,10 +5,10 @@ on:
   branches:
    -main
 jobs:
-  Build-and-deploy:
-   runs-on: ubuntu-latest
+ Build-and-deploy:
+  runs-on: ubuntu-latest
 
-   steps:
+  steps:
      -name: Checkout Code
       uses:actions/checkoutcode@v3
       
