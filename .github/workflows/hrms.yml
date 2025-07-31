@@ -1,6 +1,6 @@
 name:CICD pipeline-Horilla Demo
 
- on:
+on:
   push:
     branches:
      -main
