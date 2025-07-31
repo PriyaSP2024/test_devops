@@ -12,32 +12,32 @@ jobs:
      -name: Checkout Code
       uses:actions/checkoutcode@v3
       
-   -name: Setup Python
-    uses:actions/setup-python@v4
-    with:
-       python-version: '3.11'
+     -name: Setup Python
+      uses:actions/setup-python@v4
+      with:
+        python-version: '3.11'
 
-   -name: Install Dependencies
+     -name: Install Dependencies
        run: |
        python -m pip install --upgrade pip
        pip install -r requirements.txt
 
-   -name: Sonarqube Scan
-    uses:Sonarqube/Sonarqube-scan-action@v2
-    with:
-       project Base Dir..
-      env:
-      SONAR_TOKEN:${{secreats.SONAR_TOKEN}}
-      SONAR_HOST_URL:${{secreats.SONAR_HOST_URL}}
+     -name: Sonarqube Scan
+      uses:Sonarqube/Sonarqube-scan-action@v2
+      with:
+        project Base Dir..
+        env:
+         SONAR_TOKEN:${{secreats.SONAR_TOKEN}}
+         SONAR_HOST_URL:${{secreats.SONAR_HOST_URL}}
       
-    -name: Copy files to EC2 via SCP
-     uses: appleboy/scp-aaction@masster
-     with 
-       host:${{secreats.SSH_SERVER_USER}}
-       key.${{secreats.SSH_PRIVATE_KEY}}
-       sources:"."
-       target: "/home/{{secreats.SERVER_USER}}/horilla"
-       strip-components: 1
+     -name: Copy files to EC2 via SCP
+      uses: appleboy/scp-aaction@masster
+      with: 
+        host:${{secreats.SSH_SERVER_USER}}
+        key.${{secreats.SSH_PRIVATE_KEY}}
+        sources:"."
+        target: "/home/{{secreats.SERVER_USER}}/horilla"
+        strip-components: 1
      -name: SSH into EC2 and Deploy
       uses: appleboy/ssh-action@master
       with:
