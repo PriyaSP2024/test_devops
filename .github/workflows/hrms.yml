@@ -1,13 +1,13 @@
 name:CICD pipeline-Horilla Demo
-
+ 
 on:
   push:
     branches:
-     -main
+      -main
 
 jobs:
-  build-and-analyze
-    runs-on: ubuntu-latest
+   build-and-analyze
+     runs-on: ubuntu-latest
 
     steps:
        - name: Checkout Repository
